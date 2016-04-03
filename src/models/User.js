@@ -6,11 +6,13 @@ module.exports = function (done) {
     var Schema = mongoose.Schema,
         ObjectId = Schema.ObjectId;
 
-    var BlogPost = new Schema({
+    const User = new Schema({
         name: {type: String, unique: true},
-        password: {type:String},
-        nickname: {type: String}
-    });
+        email: {type: String, unique: true},
+        password: {type: String},
+        nickname: {type: String},
+        about: {type: String}
+    })
 
     $.mongodb.model('User', User);
     $.model.User = $.mongodb.model('User');
