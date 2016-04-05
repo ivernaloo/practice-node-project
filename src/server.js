@@ -10,7 +10,7 @@ import path from 'path';  // 路径管理
 import ProjectCore from 'project-core';  // 项目核心文件
 import createDebug from 'debug';  // 调试库
 
-const $ = global.$ = new ProjectCore();   // project的实例
+const $ = global.$ = new ProjectCore();   // project的实例，最关键的是在这儿暴露给了全局
 
 
 // 创建Debug函数
