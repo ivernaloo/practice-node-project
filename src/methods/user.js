@@ -11,6 +11,9 @@ import validator from 'validator';
 module.exports = function (done) {
 
 
+  /*
+  * 感觉像基于annotation的编程方式
+  * */
   $.method('user.add').check({
     name: {required: true, validate: (v) => validator.isLength(v, {min: 4, max: 20}) && /^[a-zA-Z]/.test(v)},
     email: {required: true, validate: (v) => validator.isEmail(v)},
