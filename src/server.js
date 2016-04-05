@@ -1,45 +1,65 @@
 'use strict';
-/*
-* practice Node.js project
-*
-* @author aloo <aloo@gmail.com>
-* */
-import ProjectCore from 'project-core'
 
-const $ = global.$ = new ProjectCore();
+/**
+ * pratice Node.js project
+ *
+ * @author Zongmin Lei <leizongmin@gmail.com>
+ */
 
-// ���������ļ�
-$.init.add( (done) => {
-    $.config.load(path.resolve(__dirname, 'config.js'));
-    const env = process.env.NODE_ENV || null;
-    if (env){
-        $.config.load(path.resolve(__dirname, '../config', env + '.js'));
-    }
-    $.env = env;
-    done();
+import path from 'path';  // 路径管理
+import ProjectCore from 'project-core';  // 项目核心文件
+import createDebug from 'debug';  // 调试库
+
+const $ = global.$ = new ProjectCore();   // project的实例
+
+
+// 创建Debug函数
+$.createDebug = function (name) {
+  return createDebug('my:' + name); // 输出调式信息
+};
+const debug = $.createDebug('server'); // server ?
+
+
+// 加载配置文件
+$.init.add((done) => {
+  $.config.load(path.resolve(__dirname, 'config.js'));
+  const env = process.env.NODE_ENV || null;
+  if (env) {
+    debug('load env: %s', env);
+    $.config.load(path.resolve(__dirname, '../config', env + '.js'));
+  }
+  $.env = env;
+  done();
 });
 
-// ��ʼ��MongoDB
+// 上面都是用project-core做了一层简单的封装，方便调用
+
+// 初始化MongoDB
 $.init.load(path.resolve(__dirname, 'init', 'mongodb.js'));
+// 加载Models
 $.init.load(path.resolve(__dirname, 'models'));
 
-// ��ʼ��Express
-$.init.load(path.resolve(__ ))
 
-//��ʼ��
+// 加载methods
+$.init.load(path.resolve(__dirname, 'methods'));
+
+
+// 初始化Express
+$.init.load(path.resolve(__dirname, 'init', 'express.js'));
+// 初始化中间件
+$.init.load(path.resolve(__dirname, 'middlewares'));
+// 加载路由
+$.init.load(path.resolve(__dirname, 'routes'));
+
+
+// 初始化
 $.init((err) => {
-    if (err) {
-        console.error(err);
-        process.exit(-1);
-    } else {
-        console.log('inited [env=%s]', $.env);
-    }
+  if (err) {
+    console.error(err);
+    process.exit(-1); // 退出当前进程
+  } else {
+    console.log('inited [env=%s]', $.env);
+  }
 
-    const item = new $.model.User({
-        name: 'User${$.utils.date('Ymd')}',
-        password: '123456',
-        nickname: '�����û�'
-    });
-
-    item.save(console.log);
-})
+  require('./test');
+});
