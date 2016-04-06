@@ -8,7 +8,7 @@
 
 module.exports = function (done) {
 
-
+  // 添加主题
   $.router.post('/api/topic/add', $.checkLogin,  async function (req, res, next) {
 
     req.body.authorId = req.session.user._id;
@@ -46,7 +46,7 @@ module.exports = function (done) {
 
   });
 
-
+  // 打开特定的主题
   $.router.post('/api/topic/item/:topic_id', $.checkLogin, $.checkTopicAuthor, async function (req, res, next) {
 
     if ('tags' in req.body) {
@@ -62,7 +62,7 @@ module.exports = function (done) {
 
   });
 
-
+  // 删除特定的主题
   $.router.delete('/api/topic/item/:topic_id', $.checkLogin, $.checkTopicAuthor, async function (req, res, next) {
 
     const topic = await $.method('topic.delete').call({_id: req.params.topic_id});
