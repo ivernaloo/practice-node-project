@@ -16,7 +16,7 @@ module.exports = function (done) {
   // 登录的路由
   $.router.post('/api/login', async function (req, res, next) {
 
-    if (!req.body.password) return next(new Error('missing password'));
+    if (!req.body.password) return next(new Error('missing password')); //没有密码
 
     const user = await $.method('user.get').call(req.body); //这里是等待await的回调
     if (!user) return next(new Error('user does not exists'));

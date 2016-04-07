@@ -46,6 +46,8 @@ module.exports = function (done) {
     };
   });
   $.router = routerWrap; // 这个变量对应了restful api的所有状态
+                          // 直接用routerWrap替换了这个逻辑
+                            
 
   app.use(function (req, res, next) {
     res.apiSuccess = function (data) {  // 返回正确的api json数据

@@ -12,13 +12,13 @@ module.exports = function (set, get, has) {
   set('web.port', 3000);
 
   // session secret
-  set('web.session.secret', 'test');
+  set('web.session.secret', 'test'); // session的使用
 
   // session redis connection
   // 连接redis
   set('web.session.redis', {
-    host: '127.0.0.1',
-    port: 6379,
+    host: '192.168.99.100',
+    port: 32768,
   });
 
 };

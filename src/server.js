@@ -7,6 +7,7 @@
  */
 
 import path from 'path';  // 路径管理
+
 import ProjectCore from 'project-core';  // 项目核心文件
 import createDebug from 'debug';  // 调试库
 
@@ -35,21 +36,21 @@ $.init.add((done) => {
 // 上面都是用project-core做了一层简单的封装，方便调用
 
 // 初始化MongoDB
-$.init.load(path.resolve(__dirname, 'init', 'mongodb.js'));
+$.init.load(path.resolve(__dirname, 'init', 'mongodb.js')); //加载文件
 // 加载Models
-$.init.load(path.resolve(__dirname, 'models'));
-
+$.init.load(path.resolve(__dirname, 'models')); //加载models目录
 
 // 加载methods
-$.init.load(path.resolve(__dirname, 'methods'));
-
+$.init.load(path.resolve(__dirname, 'methods'));  // 加载methods
 
 // 初始化Express
 $.init.load(path.resolve(__dirname, 'init', 'express.js'));
 // 初始化中间件
-$.init.load(path.resolve(__dirname, 'middlewares'));
+$.init.load(path.resolve(__dirname, 'middlewares'));  //加载中间件目录
 // 加载路由
-$.init.load(path.resolve(__dirname, 'routes'));
+$.init.load(path.resolve(__dirname, 'routes')); //加载routes目录
+
+
 
 
 // 初始化
@@ -63,3 +64,10 @@ $.init((err) => {
 
   require('./test');
 });
+
+/*const item = new $.model.User({
+  name: 'User$($.utils.date("Ymd")}',
+  password: '11121',
+  nickname: '测试用户'
+});
+item.save(console.log);*/
