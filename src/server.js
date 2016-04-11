@@ -26,8 +26,9 @@ $.init.add((done) => {
   $.config.load(path.resolve(__dirname, 'config.js'));
   const env = process.env.NODE_ENV || null;
   if (env) {
+    console.log("env : ", env);
     debug('load env: %s', env);
-    $.config.load(path.resolve(__dirname, '../config', env + '.js'));
+    $.config.load(path.resolve(__dirname, '../config/dev.js'));
   }
   $.env = env;
   done();
