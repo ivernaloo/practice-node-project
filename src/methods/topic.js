@@ -11,13 +11,13 @@ import validator from 'validator';
 module.exports = function (done) {
 
 
-  $.method('topic.add').check({ // 检测方法，这个检测方法还蛮完善的
-    authorId: {required: true, validate: (v) => validator.isMongoId(String(v))},   // 类型检测
+  $.method('topic.add').check({
+    authorId: {required: true, validate: (v) => validator.isMongoId(String(v))},
     title: {required: true},
     content: {required: true},
     tags: {validate: (v) => Array.isArray(v)},
   });
-  $.method('topic.add').register(async function (params) {  //register和check什么都是为了生成日志信息
+  $.method('topic.add').register(async function (params) {
 
     const topic = new $.model.Topic(params);
     topic.createdAt = new Date();
@@ -27,10 +27,6 @@ module.exports = function (done) {
   });
 
 
-  /*
-  * topic.get方法
-  * 这个是topic方法
-  * */
   $.method('topic.get').check({
     _id: {required: true, validate: (v) => validator.isMongoId(String(v))},
   });
@@ -40,9 +36,7 @@ module.exports = function (done) {
 
   });
 
-  /*
-  * topic.list方法
-  * */
+
   $.method('topic.list').check({
     authorId: {validate: (v) => validator.isMongoId(String(v))},
     tags: {validate: (v) => Array.isArray(v)},
@@ -55,7 +49,7 @@ module.exports = function (done) {
     if (params.authorId) query.authorId = params.authorId;
     if (params.tags) query.tags = {$all: params.tags};
 
-    const ret = $.model.Topic.find(query, { //在mongodb实例里面查找具体的数据
+    const ret = $.model.Topic.find(query, {
       authorId: 1,
       title: 1,
       tags: 1,
@@ -70,11 +64,9 @@ module.exports = function (done) {
 
   });
 
-  /*
-  * topic.delete
-  * */
+
   $.method('topic.delete').check({
-    _id: {required: true, validate: (v) => validator.isMongoId(String(v))}, //validator是一个全面的验证库
+    _id: {required: true, validate: (v) => validator.isMongoId(String(v))},
   });
   $.method('topic.delete').register(async function (params) {
 
@@ -82,9 +74,7 @@ module.exports = function (done) {
 
   });
 
-  /*
-  * topic.update
-  * */
+
   $.method('topic.update').check({
     _id: {required: true, validate: (v) => validator.isMongoId(String(v))},
     tags: {validate: (v) => Array.isArray(v)},
@@ -101,9 +91,7 @@ module.exports = function (done) {
 
   });
 
-  /*
-  * topic.comment.add
-  * */
+
   $.method('topic.comment.add').check({
     _id: {required: true, validate: (v) => validator.isMongoId(String(v))},
     authorId: {required: true, validate: (v) => validator.isMongoId(String(v))},
@@ -125,9 +113,7 @@ module.exports = function (done) {
 
   });
 
-  /*
-  * topic.comment.get
-  * */
+
   $.method('topic.comment.get').check({
     _id: {required: true, validate: (v) => validator.isMongoId(String(v))},
     cid: {required: true, validate: (v) => validator.isMongoId(String(v))},
@@ -143,9 +129,7 @@ module.exports = function (done) {
 
   });
 
-  /*
-  * topic.comment.delete
-  * */
+
   $.method('topic.comment.delete').check({
     _id: {required: true, validate: (v) => validator.isMongoId(String(v))},
     cid: {required: true, validate: (v) => validator.isMongoId(String(v))},

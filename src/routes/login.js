@@ -8,17 +8,17 @@
 
 module.exports = function (done) {
 
-  // 检测用户登录与否的api
+
   $.router.get('/api/login_user', async function (req, res, next) {
     res.apiSuccess({user: req.session.user, token: req.session.logout_token});
   });
 
-  // 登录的路由
+
   $.router.post('/api/login', async function (req, res, next) {
 
-    if (!req.body.password) return next(new Error('missing password')); //没有密码
+    if (!req.body.password) return next(new Error('missing password'));
 
-    const user = await $.method('user.get').call(req.body); //这里是等待await的回调
+    const user = await $.method('user.get').call(req.body);
     if (!user) return next(new Error('user does not exists'));
 
     if (!$.utils.validatePassword(req.body.password, user.password)) {
@@ -32,7 +32,7 @@ module.exports = function (done) {
 
   });
 
-  // 退出的路由
+
   $.router.get('/api/logout', async function (req, res, next) {
 
     if (req.session.logout_token && req.query.token !== req.session.logout_token) {
@@ -46,7 +46,7 @@ module.exports = function (done) {
 
   });
 
-  // 注册
+
   $.router.post('/api/signup', async function (req, res, next) {
 
     const user = await $.method('user.add').call(req.body);
