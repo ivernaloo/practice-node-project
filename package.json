@@ -8,7 +8,7 @@
     "watch": "npm run clean && babel src -d target --watch",
     "compile": "npm run clean && babel src -d target",
     "clean": "rm -Rf target",
-    "dev": "set NODE_ENV=dev && set DEBUG='my:*,project-core:*' && cd target && nodemon server.js",
+    "dev": "export NODE_ENV=dev && export DEBUG='my:*,project-core:*' && cd target && nodemon server.js",
     "fe:compile": "cd frontend && webpack --progress --colors",
     "fe:watch": "cd frontend && webpack --progress --colors --watch",
     "fe:dev": "cd frontend && webpack-dev-server"
@@ -37,10 +37,12 @@
     "express-session": "^1.13.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "highlight.js": "^9.3.0",
     "imports-loader": "^0.6.5",
     "jquery": "^2.2.3",
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
+    "marked": "^0.3.5",
     "mongoose": "^4.4.6",
     "project-core": "^0.1.0",
     "react": "^0.14.8",
@@ -49,7 +51,8 @@
     "serve-static": "^1.10.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "validator": "^5.1.0"
+    "validator": "^5.1.0",
+    "xss": "^0.2.10"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
